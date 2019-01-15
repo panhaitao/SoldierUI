@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+	  <title>{{ title }}</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <!-- <style type="text/css"> </style> -->
+	  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/main.css') }}">
+
+  </head>
+
+  <body>
+	<head>
+	  <div id=top >
+	   <div id="headNav">
+         {% block page_nav %}{% endblock%}
+	   </div>
+	  </div>
+    </head>
+
+
+	<div id="page">
+      <div id="left">
+	    {% block page_main %}{% endblock%}
+      </div>
+      <div id="right">
+	    {% block page_contect %}{% endblock%}
+	  </div>
+	</div>
+  </body>
+</html>
