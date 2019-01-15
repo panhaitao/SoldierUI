@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block page_nav %}
+  {% autoescape false %}
+    {{ page_nav }}
+  {% endautoescape %}
+{% endblock %}
+		
+{% block page_main %}
+  {% autoescape false %}
+    {{ page_main }}
+  {% endautoescape %}
+{% endblock %}
+
+{% block page_content %}
+  {% autoescape false %}
+    {{ page_content }}
+  {% endautoescape %}
+{% endblock %}
