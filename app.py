@@ -16,24 +16,33 @@ nav_str='''
           </ol>
         </nav>
 '''
+def list_all_files(rootdir):
+    _files = []
+    list = os.listdir(rootdir)
+    for i in range(0,len(list)):
+        path = os.path.join(rootdir,list[i])
+        if os.path.isdir(path):
+            _files.extend(list_all_files(path))
+        if os.path.isfile(path):
+            _files.append(path)
+    return _files
 
+def get_md_title(filename):
+    md_title=""
+    with open(filename,'r') as f:
+        for line in f:
+            md_title=line
+            break
+    return md_title
 
 @app.route('/')
 def index():
-    main='''
-    <a id=现场运维自动化></a>
-    <h1> <a href="/test" target="_self" >现场运维自动化</a></li> </h1>
-    <p>在客户现场运维的时候，经常面临各种各样的问题，有些甚至是不段重复的机械劳动,这个时候就需要我们想尽办法去偷懒，去达到即快又好的解决问题，又能让自己在客户现场运维的节奏更轻松，更自在些！</p>
-    <hr>
-    '''
-    content='''
-    <ul>
-      目录
-      </br>
-      <hr>
-      <li><a href="#现场运维自动化" target="_self" >现场运维自动化</a></li>
-    </ul>
-    '''
+    main=""
+    content=""
+    for f in list_all_files("./markdown"):
+        md_title=get_md_title(f)
+        main=main+'<a id='+md_title+'></a>'+'<h1><a href="/test" target="_self" >'+md_title+'</a></li> </h1><hr>'
+        content=content+'<li><a href=\"#'+md_title+'\" target=\"_self\" >'+md_title+'</a></li>'
     return render_template('page.html', title="首页", page_nav=nav_str, page_main=main, page_content=content)
 
 @app.route('/about')
