@@ -1,3 +1,4 @@
+{% set list=content %}
 {% extends "base.html" %}
 
 {% block page_nav %}
@@ -14,6 +15,12 @@
 
 {% block page_content %}
   {% autoescape false %}
-    {{ page_content }}
+    <ul>
+	  目录
+    </br><hr>
+	{% for k in content %}
+	    <li><a href="#{{ k }} ">{{ k }}</a></li>
+	{% endfor %}
+	</ul>
   {% endautoescape %}
 {% endblock %}
