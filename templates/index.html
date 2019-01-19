@@ -1,0 +1,29 @@
+{% set dict=data %}
+{% extends "base.html" %}
+
+{% block page_nav %}
+  {% autoescape false %}
+    {{ page_nav }}
+  {% endautoescape %}
+{% endblock %}
+		
+{% block page_main %}
+  {% autoescape false %}
+  {% for k in dict.keys() %}
+	<a id={{ dict[k][0] }} ></a>
+	<h1>
+		<li>
+		  <a href='/{{ k }}' target="_self" >{{ dict[k][0] }}</a>
+		</li>
+	</h1>
+	{% endfor %}
+  {% endautoescape %}
+{% endblock %}
+
+{% block page_content %}
+  {% autoescape false %}
+    {% for k in dict.keys() %}
+	<li><a href="#{{ dict[k][0] }}" target="_self">{{ dict[k][0] }}</a></li>
+	{% endfor %}
+  {% endautoescape %}
+{% endblock %}
