@@ -37,13 +37,16 @@ def get_md_title(filename):
 
 @app.route('/')
 def index():
+    data={ }
     main=""
     content=""
+    i=1
     for f in list_all_files("./markdown"):
-        md_title=get_md_title(f)
-        main=main+'<a id='+md_title+'></a>'+'<h1><a href="/test" target="_self" >'+md_title+'</a></li> </h1><hr>'
-        content=content+'<li><a href=\"#'+md_title+'\" target=\"_self\" >'+md_title+'</a></li>'
-    return render_template('page.html', title="首页", page_nav=nav_str, page_main=main, page_content=content)
+        title=get_md_title(f)
+        data[i]=[title, f]
+        i+=1
+
+    return render_template('index.html', title="首页", page_nav=nav_str,data=data)
 
 @app.route('/about')
 def about():
@@ -69,8 +72,18 @@ def about():
     '''
     return render_template('page.html', title="简介", page_nav=nav_str, page_main=main, page_content=content)
 
-@app.route('/test')
-def page():
+@app.route('/<name>')
+def page(name):
+    data={ }
+    i=1
+    for f in list_all_files("./markdown"):
+        title=get_md_title(f)
+        data[i]=[title, f]
+        i+=1
+
+    title    = data[int(name)][0]
+    filename = data[int(name)][1]
+
     content='''
             <ul>
 	  目录
@@ -88,8 +101,9 @@ def page():
 	  <li><a href="#定期巡检k8s集群运行状态">定期巡检k8s集群运行状态</a></li>
 	</ul>
     '''
-    
-    md=open('markdown/k8s-devops.md').read()
+    title=data[int(name)][0]
+    filename=data[int(name)][1]
+    md=open(filename).read()
     exts = ['markdown.extensions.extra','markdown.extensions.tables']
     ret=markdown.markdown(md,extensions=exts)
-    return render_template('page.html',title="现场运维自动化", page_nav=nav_str, page_main=ret, page_content=content)
+    return render_template('page.html',title=title, page_nav=nav_str, page_main=ret, page_content=content)
