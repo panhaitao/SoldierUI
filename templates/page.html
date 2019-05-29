@@ -16,11 +16,11 @@
 {% block page_content %}
   {% autoescape false %}
     <ul>
-	  目录
+    目录
     </br><hr>
-	{% for k in content %}
-	    <li><a href="#{{ k }} ">{{ k }}</a></li>
-	{% endfor %}
-	</ul>
+      {% for k in content %}
+        <li><a href="#{{ k }} ">{{ k }}</a></li>
+      {% endfor %}
+    </ul>
   {% endautoescape %}
 {% endblock %}

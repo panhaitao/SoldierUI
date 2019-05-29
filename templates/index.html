@@ -7,23 +7,26 @@
   {% endautoescape %}
 {% endblock %}
 		
-{% block page_main %}
-  {% autoescape false %}
-  {% for k in dict.keys() %}
-	<a id={{ dict[k][0] }} ></a>
-	<h1>
-		<li>
-		  <a href='/{{ k }}' target="_self" >{{ dict[k][0] }}</a>
-		</li>
-	</h1>
-	{% endfor %}
+{%- block page_main -%}
+  {% autoescape true %}
+  {% for category in H2 %}
+  <h2> {{ category }}</h2>
+  <hr>
+    <ul>
+    {%- for k in dict.keys() -%}
+      {% if dict[k][0] == category %}
+      <li> <a id={{ dict[k][1] }}  href='/{{ k }}' target="_self" >{{ dict[k][1] }}</a> </li>
+      {% endif %}
+    {%- endfor -%}
+    </ul>
+  {% endfor %}
   {% endautoescape %}
-{% endblock %}
+{%- endblock -%}
 
 {% block page_content %}
   {% autoescape false %}
     {% for k in dict.keys() %}
-	<li><a href="#{{ dict[k][0] }}" target="_self">{{ dict[k][0] }}</a></li>
+	<li><a href="#{{ dict[k][1] }}" target="_self">{{ dict[k][1] }}</a></li>
 	{% endfor %}
   {% endautoescape %}
 {% endblock %}
